@@ -2,7 +2,9 @@ var React = require('react'),
   DaysView = require('./DaysView'),
   MonthsView = require('./MonthsView'),
   YearsView = require('./YearsView'),
-  TimeView = require('./TimeView')
+  TimeView = require('./TimeView'),
+  HoursView = require('./HoursView'),
+  MinutesView = require('./MinutesView')
 ;
 
 var CalendarContainer = React.createClass({
@@ -10,7 +12,9 @@ var CalendarContainer = React.createClass({
 		days: DaysView,
 		months: MonthsView,
 		years: YearsView,
-		time: TimeView
+		time: TimeView,
+    hours: HoursView,
+    minutes: MinutesView
 	},
 
   render: function() {

@@ -21,7 +21,7 @@ var Datetime = React.createClass({
 		// timeFormat: TYPES.string | TYPES.bool,
 		inputProps: TYPES.object,
 		timeConstraints: TYPES.object,
-		viewMode: TYPES.oneOf(['years', 'months', 'days', 'time']),
+		viewMode: TYPES.oneOf(['years', 'months', 'days', 'time', 'hours', 'minutes']),
 		isValidDate: TYPES.func,
 		open: TYPES.bool,
 		strictParsing: TYPES.bool,
@@ -304,38 +304,57 @@ var Datetime = React.createClass({
 
 			date = viewDate.clone()
 				.month( viewDate.month() + modifier )
-				.date( parseInt( target.getAttribute('data-value'), 10 ) );
+				.date( parseInt( target.getAttribute('data-value'), 10 ) )
+				.hours( currentDate.hours() )
+				.minutes( currentDate.minutes() );
+
 		} else if (target.className.indexOf('rdtMonth') !== -1) {
 			date = viewDate.clone()
 				.month( parseInt( target.getAttribute('data-value'), 10 ) )
-				.date( currentDate.date() );
+				.date( currentDate.date() )
+				.hours( currentDate.hours() )
+				.minutes( currentDate.minutes() );
+
 		} else if (target.className.indexOf('rdtYear') !== -1) {
 			date = viewDate.clone()
 				.month( currentDate.month() )
 				.date( currentDate.date() )
-				.year( parseInt( target.getAttribute('data-value'), 10 ) );
-		}
+				.year( parseInt( target.getAttribute('data-value'), 10 ) )
+				.hours( currentDate.hours() )
+				.minutes( currentDate.minutes() );
 
-		date.hours( currentDate.hours() )
-			.minutes( currentDate.minutes() )
-			.seconds( currentDate.seconds() )
+		} else if (target.className.indexOf('rdtHour') !== -1) {
+			date = viewDate.clone()
+				.hours( parseInt( target.getAttribute('data-value'), 10 ))
+				.minutes( currentDate.minutes() );
+
+		} else if (target.className.indexOf('rdtMinute') !== -1) {
+			date = viewDate.clone()
+				.hours( currentDate.hours() )
+				.minutes( parseInt( target.getAttribute('data-value'), 10 ) );
+				
+		} 
+
+		date.seconds( currentDate.seconds() )
 			.milliseconds( currentDate.milliseconds() );
-
+		
 		if ( !this.props.value ) {
-			var open = !( this.props.closeOnSelect && close );
-			if ( !open ) {
-				this.props.onBlur( date );
-			}
-
+			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'time' : this.state.currentView;
+			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'time' : currentView;
+			currentView = (this.props.timeFormat && this.state.currentView==='minutes') ? 'time' : currentView;
 			this.setState({
 				selectedDate: date,
 				viewDate: date.clone().startOf('month'),
 				inputValue: date.format( this.state.inputFormat ),
-				open: open
+				open: !(this.props.closeOnSelect && close ),
+				currentView: currentView				
 			});
 		} else {
-			if ( this.props.closeOnSelect && close ) {
+			if (this.props.closeOnSelect && close) {
 				this.closeCalendar();
+			}
+			else if (this.props.timeFormat && this.state.currentView==='days') {
+				this.setState({currentView: 'time'});
 			}
 		}
 

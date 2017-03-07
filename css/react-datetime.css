@@ -168,7 +168,7 @@ td.rdtYear:hover {
 }
 
 .rdtCounter {
-  height: 100px;
+  height: 120px;
 }
 
 .rdtCounter {
@@ -176,11 +176,11 @@ td.rdtYear:hover {
 }
 
 .rdtCounterSeparator {
-  line-height: 100px;
+  line-height: 120px;
 }
 
 .rdtCounter .rdtBtn {
-  height: 40%;
+  height: 33.33%;
   line-height: 40px;
   cursor: pointer;
   display: block;
@@ -196,8 +196,12 @@ td.rdtYear:hover {
   background: #eee;
 }
 .rdtCounter .rdtCount {
-  height: 20%;
-  font-size: 1.2em;
+  height: 33.33%;
+  line-height: 40px;
+  font-size: 1.2em;  
+}
+.rdtCounter .rdtCount:hover {
+  background: #eee;
 }
 
 .rdtMilli {
