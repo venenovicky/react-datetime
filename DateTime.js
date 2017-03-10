@@ -325,15 +325,21 @@ var Datetime = React.createClass({
 
 		} else if (target.className.indexOf('rdtHour') !== -1) {
 			date = viewDate.clone()
+				.month( currentDate.month() )
+				.date( currentDate.date() )
+				.year( currentDate.year() )
 				.hours( parseInt( target.getAttribute('data-value'), 10 ))
 				.minutes( currentDate.minutes() );
 
 		} else if (target.className.indexOf('rdtMinute') !== -1) {
 			date = viewDate.clone()
+				.month( currentDate.month() )
+				.date( currentDate.date() )
+				.year( currentDate.year() )
 				.hours( currentDate.hours() )
 				.minutes( parseInt( target.getAttribute('data-value'), 10 ) );
 				
-		} 
+		}
 
 		date.seconds( currentDate.seconds() )
 			.milliseconds( currentDate.milliseconds() );
