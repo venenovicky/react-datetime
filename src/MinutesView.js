@@ -1,9 +1,10 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+	onClickOutside = require('react-onclickoutside');
 
 var DOM = React.DOM;
-var DateTimePickerMinutes = React.createClass({
+var DateTimePickerMinutes = onClickOutside(React.createClass({
 	
 	render: function() {
 
@@ -12,7 +13,7 @@ var DateTimePickerMinutes = React.createClass({
 
 		tableChildren = [
 			DOM.thead({ key: 'head' }, DOM.tr({},
-				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'time' ) }, date.format( this.props.dateFormat ) )
+				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'days' ) }, date.format( this.props.dateFormat ) )
 			)),
 			DOM.tbody({ key: 'minutes' }, this.renderMinutes())
 		];
@@ -23,7 +24,7 @@ var DateTimePickerMinutes = React.createClass({
 	},
 
 	renderMinutes: function() {
-		var date = this.props.selectedDate,
+		var date = this.props.selectedDate ,
 			month = this.props.viewDate.month(),
 			year = this.props.viewDate.year(),
 			day  = this.props.viewDate.date(),
@@ -35,6 +36,8 @@ var DateTimePickerMinutes = React.createClass({
 			renderer = this.props.renderMinute || this.renderMinute,
 			classes, props, isDisabled
 		;
+
+		console.log(this.props.selectedDate, this.props.viewDate);
 
 		var timeConstraints = (this.props.timeConstraints && this.props.timeConstraints.minutes) ? this.props.timeConstraints.minutes : {};
 		var	max = timeConstraints.max || 59,
@@ -48,7 +51,7 @@ var DateTimePickerMinutes = React.createClass({
 			if ( isDisabled )
 				classes += ' rdtDisabled';
 
-			if ( date && i === minute && hour === hour && day === date.date() && month === date.month() && year === date.year() )
+			if ( date && i === date.minute() && hour === date.hour())
 				classes += ' rdtActive';
 
 			props = {
@@ -58,7 +61,7 @@ var DateTimePickerMinutes = React.createClass({
 			};
 			if ( !isDisabled )
 				props.onClick = this.updateSelectedMinute;
-
+			hour = date ? date.hour() : hour;
 			minutes.push( renderer( props, i, hour, day, month, year, date && date.clone() ) );
 
 			if ( minutes.length === 4 ) {
@@ -75,14 +78,18 @@ var DateTimePickerMinutes = React.createClass({
 		this.props.updateSelectedDate( event, true );
 	},
 
-	renderMinute: function( props, minute ) {
+	renderMinute: function( props, minute, hour ) {
+		hour = (hour <10) ? '0' + hour : hour;
 		minute = (minute<10) ? ('0' +minute) : minute;
-		return DOM.td( props, minute );
+		return DOM.td( props, hour + ':' + minute );
 	},
 
 	alwaysValidDate: function() {
 		return 1;
-	}
-});
+	},
 
+	handleClickOutside: function() {
+    	this.props.handleClickOutside();
+  	}
+}));
 module.exports = DateTimePickerMinutes;

@@ -345,9 +345,9 @@ var Datetime = React.createClass({
 			.milliseconds( currentDate.milliseconds() );
 		
 		if ( !this.props.value ) {
-			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'time' : this.state.currentView;
-			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'time' : currentView;
-			currentView = (this.props.timeFormat && this.state.currentView==='minutes') ? 'time' : currentView;
+			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'hours' : this.state.currentView;
+			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'minutes' : currentView;
+			
 			this.setState({
 				selectedDate: date,
 				viewDate: date.clone().startOf('month'),
@@ -360,7 +360,7 @@ var Datetime = React.createClass({
 				this.closeCalendar();
 			}
 			else if (this.props.timeFormat && this.state.currentView==='days') {
-				this.setState({currentView: 'time'});
+				this.setState({currentView: 'minutes'});
 			}
 		}
 

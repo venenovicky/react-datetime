@@ -1,9 +1,10 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+	onClickOutside = require('react-onclickoutside');
 	
 var DOM = React.DOM;
-var DateTimePickerHours = React.createClass({
+var DateTimePickerHours = onClickOutside(React.createClass({
 	
 	render: function() {
 
@@ -12,7 +13,7 @@ var DateTimePickerHours = React.createClass({
 
 		tableChildren = [
 			DOM.thead({ key: 'head' }, DOM.tr({},
-				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'time' ) }, date.format( this.props.dateFormat ) )
+				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'days' ) }, date.format( this.props.dateFormat ) )
 			)),
 			DOM.tbody({ key: 'hours' }, this.renderHours())
 		];
@@ -34,12 +35,11 @@ var DateTimePickerHours = React.createClass({
 			renderer = this.props.renderHour || this.renderHour,		
 			classes, props,  isDisabled
 		;
-
 		var timeConstraints = (this.props.timeConstraints && this.props.timeConstraints.hours) ? this.props.timeConstraints.hours : {};
 		var max = timeConstraints.max || 23,
 			min = timeConstraints.min || 0;
 
-		while (i < 12) {
+		while (i < 24) {
 			classes = 'rdtHour';
 			
 			isDisabled = (i >= min && i <= max) ? false : true;
@@ -47,7 +47,7 @@ var DateTimePickerHours = React.createClass({
 			if ( isDisabled )
 				classes += ' rdtDisabled';
 
-			if ( date && i === hour && day === date.date() && month === date.month() && year === date.year() )
+			if ( date && i === date.hour())
 				classes += ' rdtActive';
 
 			props = {
@@ -77,12 +77,15 @@ var DateTimePickerHours = React.createClass({
 
 	renderHour: function( props, hour ) {
 		hour = (hour<10) ? ('0' +hour) : hour;
-		return DOM.td( props, hour );
+		return DOM.td( props, hour + ':00' );
 	},
 
 	alwaysValidDate: function() {
 		return 1;
-	}
-});
+	},
 
+	handleClickOutside: function() {
+    	this.props.handleClickOutside();
+  	}
+}));
 module.exports = DateTimePickerHours;

@@ -127,7 +127,7 @@ var DateTimePickerDays = onClickOutside( React.createClass({
 
 		return DOM.tfoot({ key: 'tf'},
 			DOM.tr({},
-				DOM.td({ onClick: this.props.showView( 'time' ), colSpan: 7, className: 'rdtTimeToggle' }, date.format( this.props.timeFormat ))
+				DOM.td({ onClick: this.props.showView( 'hours' ), colSpan: 7, className: 'rdtTimeToggle' }, date.format( this.props.timeFormat ))
 			)
 		);
 	},
