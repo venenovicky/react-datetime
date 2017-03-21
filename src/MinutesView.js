@@ -13,7 +13,7 @@ var DateTimePickerMinutes = onClickOutside(React.createClass({
 
 		tableChildren = [
 			DOM.thead({ key: 'head' }, DOM.tr({},
-				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'days' ) }, date.format( this.props.dateFormat ) )
+				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'hours' ) }, date.format( this.props.dateFormat ) )
 			)),
 			DOM.tbody({ key: 'minutes' }, this.renderMinutes())
 		];
@@ -36,8 +36,6 @@ var DateTimePickerMinutes = onClickOutside(React.createClass({
 			renderer = this.props.renderMinute || this.renderMinute,
 			classes, props, isDisabled
 		;
-
-		console.log(this.props.selectedDate, this.props.viewDate);
 
 		var timeConstraints = (this.props.timeConstraints && this.props.timeConstraints.minutes) ? this.props.timeConstraints.minutes : {};
 		var	max = timeConstraints.max || 59,
