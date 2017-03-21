@@ -4,7 +4,7 @@ var ReactDOM = require('react-dom');
 
 ReactDOM.render(
   React.createElement(DateTime, {
-    dateFormat: 'MMM D, YYYY',
+    dateFormat: false,
     isValidDate: function(current) {
       return true;
     }

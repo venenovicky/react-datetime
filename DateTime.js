@@ -55,7 +55,7 @@ var Datetime = React.createClass({
 		if ( state.open === undefined )
 			state.open = !this.props.input;
 
-		state.currentView = this.props.dateFormat ? (this.props.viewMode || state.updateOn || 'days') : 'time';
+		state.currentView = this.props.dateFormat ? (this.props.viewMode || state.updateOn || 'days') : 'hours';
 
 		return state;
 	},
@@ -347,7 +347,7 @@ var Datetime = React.createClass({
 		if ( !this.props.value ) {
 			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'hours' : this.state.currentView;
 			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'minutes' : currentView;
-			
+
 			this.setState({
 				selectedDate: date,
 				viewDate: date.clone().startOf('month'),

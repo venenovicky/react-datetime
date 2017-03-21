@@ -13,7 +13,7 @@ var DateTimePickerHours = onClickOutside(React.createClass({
 
 		tableChildren = [
 			DOM.thead({ key: 'head' }, DOM.tr({},
-				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'days' ) }, date.format( this.props.dateFormat ) )
+				DOM.th({ className: 'rdtSwitch', colSpan: 4, onClick: this.props.dateFormat ? this.props.showView( 'days' ) : null }, this.props.dateFormat ? date.format( this.props.dateFormat ) : date.format( this.props.timeFormat ) )
 			)),
 			DOM.tbody({ key: 'hours' }, this.renderHours())
 		];
