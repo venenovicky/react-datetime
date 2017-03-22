@@ -294,8 +294,7 @@ var Datetime = React.createClass({
 			viewDate = this.state.viewDate,
 			currentDate = this.state.selectedDate || viewDate,
 			date
-    ;
-
+	    ;
 		if (target.className.indexOf('rdtDay') !== -1) {
 			if (target.className.indexOf('rdtNew') !== -1)
 				modifier = 1;
@@ -343,24 +342,41 @@ var Datetime = React.createClass({
 
 		date.seconds( currentDate.seconds() )
 			.milliseconds( currentDate.milliseconds() );
-		
+
 		if ( !this.props.value ) {
 			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'hours' : this.state.currentView;
 			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'minutes' : currentView;
+
+			var open = this.props.timeFormat && this.props.dateFormat 
+							? (this.state.currentView === 'minutes' ? !close : !(this.props.closeOnSelect && close ) ) 
+							: !close;
 
 			this.setState({
 				selectedDate: date,
 				viewDate: date.clone().startOf('month'),
 				inputValue: date.format( this.state.inputFormat ),
-				open: !(this.props.closeOnSelect && close ),
+				open: open,
 				currentView: currentView				
 			});
 		} else {
 			if (this.props.closeOnSelect && close) {
 				this.closeCalendar();
 			}
-			else if (this.props.timeFormat && this.state.currentView==='days') {
-				this.setState({currentView: 'minutes'});
+			else if (this.props.timeFormat){
+				if(this.state.currentView==='days') {
+					this.setState({currentView: 'hours', selectedDate: date, viewDate: date.clone().startOf('hours'), inputValue: date.format( this.state.inputFormat )});
+				}
+				else if (this.state.currentView==='hours') {
+					this.setState({currentView: 'minutes', selectedDate: date, viewDate: date.clone().startOf('minutes'), inputValue: date.format( this.state.inputFormat )});
+				}
+				else if (this.state.currentView==='minutes') {
+					this.setState({open: false, selectedDate: date, viewDate: date.clone().startOf('seconds'), inputValue: date.format( this.state.inputFormat )});
+				}
+			}
+			else if(!this.props.timeFormat){
+				if(this.state.currentView==='days'){
+					this.setState({open: false, selectedDate: date, viewDate: date.clone().startOf('hours'), inputValue: date.format( this.state.inputFormat )});		
+				}
 			}
 		}
 
