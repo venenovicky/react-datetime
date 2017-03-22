@@ -72,7 +72,7 @@ var DateTimePickerHours = onClickOutside(React.createClass({
 	},
 
 	updateSelectedHour: function( event ) {
-		this.props.updateSelectedDate( event, false );
+		this.props.updateSelectedDate( event, true );
 	},
 
 	renderHour: function( props, hour ) {

@@ -4,9 +4,8 @@ var ReactDOM = require('react-dom');
 
 ReactDOM.render(
   React.createElement(DateTime, {
-    dateFormat: false,
+    dateFormat: true,
     timeFormat: true,
-    value: 1490159333998,
     isValidDate: function(current) {
       return true;
     }

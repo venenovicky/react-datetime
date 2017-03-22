@@ -11,7 +11,6 @@ var Wrapper = React.createClass({
 	},
 
 	updateFormat: function(format) {
-		console.log('changing state');
 		this.setState({
 			dateFormat: 'DD.MM.YYYY'
 		});
