@@ -343,6 +343,8 @@ var Datetime = React.createClass({
 		date.seconds( currentDate.seconds() )
 			.milliseconds( currentDate.milliseconds() );
 
+		var _self = this;
+
 		if ( !this.props.value ) {
 			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'hours' : this.state.currentView;
 			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'minutes' : currentView;
@@ -352,34 +354,67 @@ var Datetime = React.createClass({
 							: (this.props.timeFormat 
 									?  (this.state.currentView === 'minutes' ? false : true )
 									:  false);
-			
 			this.setState({
 				selectedDate: date,
 				viewDate: date.clone().startOf('month'),
 				inputValue: date.format( this.state.inputFormat ),
 				open: open,
 				currentView: currentView				
+			},function(){
+				_self.props.onChange( date );
 			});
 		} else {
 			if (this.props.timeFormat){
 				if(this.state.currentView==='days') {
-					this.setState({currentView: 'hours', selectedDate: date, viewDate: date.clone().startOf('hours'), inputValue: date.format( this.state.inputFormat )});
+					this.setState({
+						currentView: 'hours',
+						selectedDate: date, 
+						viewDate: date.clone().startOf('hours'), 
+						inputValue: date.format( this.state.inputFormat )
+					},function(){
+						_self.props.onChange( date );
+					});
 				}
 				else if (this.state.currentView==='hours') {
-					this.setState({currentView: 'minutes', selectedDate: date, viewDate: date.clone().startOf('minutes'), inputValue: date.format( this.state.inputFormat )});
+					this.setState({
+						currentView: 'minutes', 
+						selectedDate: date, 
+						viewDate: date.clone().startOf('minutes'), 
+						inputValue: date.format( this.state.inputFormat )
+					},function(){
+						_self.props.onChange( date );
+					});
 				}
 				else if (this.state.currentView==='minutes') {
-					this.setState({open: false, selectedDate: date, viewDate: date.clone().startOf('seconds'), inputValue: date.format( this.state.inputFormat )});
+					this.setState({
+						open: false, 
+						selectedDate: date, 
+						viewDate: date.clone().startOf('seconds'), 
+						inputValue: date.format( this.state.inputFormat )
+					},function(){
+						_self.props.onChange( date );
+					});
+				}
+				else{
+					_self.props.onChange( date );
 				}
 			}
 			else{
 				if(this.state.currentView==='days'){
-					this.setState({open: false, selectedDate: date, viewDate: date.clone().startOf('hours'), inputValue: date.format( this.state.inputFormat )});		
+					this.setState({
+						open: false, 
+						selectedDate: date, 
+						viewDate: date.clone().startOf('hours'), 
+						inputValue: date.format( this.state.inputFormat )
+					},function(){
+						_self.props.onChange( date );
+					});		
+				}
+				else{
+					_self.props.onChange( date );
 				}
 			}
 		}
-
-		this.props.onChange( date );
 	},
 
 	openCalendar: function() {
