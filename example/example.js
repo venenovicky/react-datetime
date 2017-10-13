@@ -6,6 +6,16 @@ ReactDOM.render(
   React.createElement(DateTime, {
     dateFormat: true,
     timeFormat: true,
+    timeConstraints: {
+    	hours: {
+    		min: 10,
+    		max: 16
+    	},
+    	minutes: {
+    		min: 20,
+    		max: 50
+    	}
+    },
     isValidDate: function(current) {
       return true;
     }

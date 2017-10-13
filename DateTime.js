@@ -376,14 +376,26 @@ var Datetime = React.createClass({
 					});
 				}
 				else if (this.state.currentView==='hours') {
-					this.setState({
-						currentView: 'minutes', 
-						selectedDate: date, 
-						viewDate: date.clone().startOf('minutes'), 
-						inputValue: date.format( this.state.inputFormat )
-					},function(){
-						_self.props.onChange( date );
-					});
+					if(this.props.hideMinutes) {
+						this.setState({
+							open: false,
+							selectedDate: date, 
+							viewDate: date.clone().startOf('minutes'), 
+							inputValue: date.format( this.state.inputFormat )
+						},function(){
+							_self.props.onChange( date );
+						});	
+					}
+					else{
+						this.setState({
+							currentView: 'minutes', 
+							selectedDate: date, 
+							viewDate: date.clone().startOf('minutes'), 
+							inputValue: date.format( this.state.inputFormat )
+						},function(){
+							_self.props.onChange( date );
+						});	
+					}					
 				}
 				else if (this.state.currentView==='minutes') {
 					this.setState({
