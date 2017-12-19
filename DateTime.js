@@ -195,7 +195,7 @@ var Datetime = React.createClass({
 	},
 
 	onInputChange: function( e ) {
-		var value = e.target === null ? e : e.target.value,
+		var value = this.props.disableManualEdit ? this.state.inputValue : (e.target === null ? e : e.target.value),
 			localMoment = this.localMoment( value, this.state.inputFormat ),
 			update = { inputValue: value }
 		;

@@ -6,6 +6,7 @@ ReactDOM.render(
   React.createElement(DateTime, {
     dateFormat: true,
     timeFormat: true,
+    disableManualEdit: true,
     timeConstraints: {
     	hours: {
     		min: 10,
