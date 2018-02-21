@@ -1,7 +1,5 @@
-'use strict';
-
 var assign = require('object-assign'),
-	moment = require('moment'),
+	moment = require('moment').default,
 	React = require('react'),
 	CalendarContainer = require('./src/CalendarContainer')
 ;
