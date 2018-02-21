@@ -5,8 +5,6 @@ var React = require('react'),
   onClickOutside = require('react-onclickoutside')
 ;
 
-import moment from 'moment';
-
 var DOM = React.DOM;
 var DateTimePickerDays = onClickOutside( React.createClass({
 	render: function() {
