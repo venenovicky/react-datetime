@@ -451,7 +451,8 @@ var Datetime = React.createClass({
 
 	localMoment: function( date, format, props ) {
 		props = props || this.props;
-		var momentFn = props.utc ? moment.utc : moment;
+		// var momentFn = props.utc ? moment.utc : moment;
+		var momentFn = props.utc ? moment.utc : ((moment && moment.hasOwnProperty('default'))?moment.default:moment);
 		var m = momentFn( date, format, props.strictParsing );
 		if ( props.locale )
 			m.locale( props.locale );
