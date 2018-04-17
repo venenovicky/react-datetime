@@ -76,7 +76,9 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "create-react-class": "^15.6.3",
     "object-assign": "^3.0.0",
+    "react-dom-factories": "^1.0.2",
     "react-onclickoutside": "^5.9.0"
   },
   "pre-commit": [

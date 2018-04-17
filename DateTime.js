@@ -3,30 +3,33 @@
 var assign = require('object-assign'),
 	moment = require('moment'),
 	React = require('react'),
-	CalendarContainer = require('./src/CalendarContainer')
+	createReactClass = require('create-react-class'),
+	CalendarContainer = require('./src/CalendarContainer'),
+	PropTypes = require('prop-types'),
+	DOM = require('react-dom-factories')
 ;
 
-var TYPES = React.PropTypes;
-var Datetime = React.createClass({
+// var PropTypes = React.PropTypes;
+var Datetime = createReactClass({
 	propTypes: {
-		// value: TYPES.object | TYPES.string,
-		// defaultValue: TYPES.object | TYPES.string,
-		onFocus: TYPES.func,
-		onBlur: TYPES.func,
-		onChange: TYPES.func,
-		locale: TYPES.string,
-		utc: TYPES.bool,
-		input: TYPES.bool,
-		// dateFormat: TYPES.string | TYPES.bool,
-		// timeFormat: TYPES.string | TYPES.bool,
-		inputProps: TYPES.object,
-		timeConstraints: TYPES.object,
-		viewMode: TYPES.oneOf(['years', 'months', 'days', 'time', 'hours', 'minutes']),
-		isValidDate: TYPES.func,
-		open: TYPES.bool,
-		strictParsing: TYPES.bool,
-		closeOnSelect: TYPES.bool,
-		closeOnTab: TYPES.bool
+		// value: PropTypes.object | PropTypes.string,
+		// defaultValue: PropTypes.object | PropTypes.string,
+		onFocus: PropTypes.func,
+		onBlur: PropTypes.func,
+		onChange: PropTypes.func,
+		locale: PropTypes.string,
+		utc: PropTypes.bool,
+		input: PropTypes.bool,
+		// dateFormat: PropTypes.string | PropTypes.bool,
+		// timeFormat: PropTypes.string | PropTypes.bool,
+		inputProps: PropTypes.object,
+		timeConstraints: PropTypes.object,
+		viewMode: PropTypes.oneOf(['years', 'months', 'days', 'time', 'hours', 'minutes']),
+		isValidDate: PropTypes.func,
+		open: PropTypes.bool,
+		strictParsing: PropTypes.bool,
+		closeOnSelect: PropTypes.bool,
+		closeOnTab: PropTypes.bool
 	},
 
 	getDefaultProps: function() {
@@ -491,8 +494,7 @@ var Datetime = React.createClass({
 	},
 
 	render: function() {
-		var DOM = React.DOM,
-			className = 'rdt' + (this.props.className ?
+		var className = 'rdt' + (this.props.className ?
                   ( Array.isArray( this.props.className ) ?
                   ' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
 			children = []

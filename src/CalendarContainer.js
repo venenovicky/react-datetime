@@ -4,10 +4,11 @@ var React = require('react'),
   YearsView = require('./YearsView'),
   TimeView = require('./TimeView'),
   HoursView = require('./HoursView'),
-  MinutesView = require('./MinutesView')
+  MinutesView = require('./MinutesView'),
+  createReactClass = require('create-react-class')  
 ;
 
-var CalendarContainer = React.createClass({
+var CalendarContainer = createReactClass({
 	viewComponents: {
 		days: DaysView,
 		months: MonthsView,

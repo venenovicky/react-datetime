@@ -1,11 +1,13 @@
 'use strict';
 
 var React = require('react'),
-	onClickOutside = require('react-onclickoutside')
+	createReactClass = require('create-react-class'),
+	onClickOutside = require('react-onclickoutside'),
+	DOM = require('react-dom-factories')
 ;
 
-var DOM = React.DOM;
-var DateTimePickerMonths = onClickOutside( React.createClass({
+// var DOM = React.DOM;
+var DateTimePickerMonths = onClickOutside( createReactClass({
 	render: function() {
 		return DOM.div({ className: 'rdtMonths' }, [
 			DOM.table({ key: 'a' }, DOM.thead( {}, DOM.tr( {}, [
