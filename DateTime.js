@@ -346,9 +346,7 @@ var Datetime = React.createClass({
 
 		date.seconds( currentDate.seconds() )
 			.milliseconds( currentDate.milliseconds() );
-
-		var _self = this;
-
+		
 		if ( !this.props.value ) {
 			var currentView = (this.props.timeFormat && this.state.currentView==='days') ? 'hours' : this.state.currentView;
 			currentView = (this.props.timeFormat && this.state.currentView==='hours') ? 'minutes' : currentView;
@@ -364,8 +362,8 @@ var Datetime = React.createClass({
 				inputValue: date.format( this.state.inputFormat ),
 				open: open,
 				currentView: currentView				
-			},function(){
-				_self.props.onChange( date );
+			},()=>{
+				this.props.onChange( date );
 			});
 		} else {
 			if (this.props.timeFormat){
@@ -375,8 +373,8 @@ var Datetime = React.createClass({
 						selectedDate: date, 
 						viewDate: date.clone().startOf('hours'), 
 						inputValue: date.format( this.state.inputFormat )
-					},function(){
-						_self.props.onChange( date );						
+					},()=>{
+						this.props.onChange( date );						
 					});
 				}
 				else if (this.state.currentView==='hours') {
@@ -386,9 +384,9 @@ var Datetime = React.createClass({
 							selectedDate: date, 
 							viewDate: date.clone().startOf('minutes'), 
 							inputValue: date.format( this.state.inputFormat )
-						},function(){
-							_self.props.onChange( date );
-							_self.props.onBlur( this.state.selectedDate || this.state.inputValue );
+						},()=>{
+							this.props.onChange( date );
+							this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 						});	
 					}
 					else{
@@ -397,8 +395,8 @@ var Datetime = React.createClass({
 							selectedDate: date, 
 							viewDate: date.clone().startOf('minutes'), 
 							inputValue: date.format( this.state.inputFormat )
-						},function(){
-							_self.props.onChange( date );
+						},()=>{
+							this.props.onChange( date );
 						});	
 					}					
 				}
@@ -408,13 +406,13 @@ var Datetime = React.createClass({
 						selectedDate: date, 
 						viewDate: date.clone().startOf('seconds'), 
 						inputValue: date.format( this.state.inputFormat )
-					},function(){
-						_self.props.onChange( date );
-						_self.props.onBlur( this.state.selectedDate || this.state.inputValue );
+					},()=>{
+						this.props.onChange( date );
+						this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 					});
 				}
 				else{
-					_self.props.onChange( date );
+					this.props.onChange( date );
 				}
 			}
 			else{
@@ -424,13 +422,13 @@ var Datetime = React.createClass({
 						selectedDate: date, 
 						viewDate: date.clone().startOf('hours'), 
 						inputValue: date.format( this.state.inputFormat )
-					},function(){
-						_self.props.onChange( date );
-						_self.props.onBlur( this.state.selectedDate || this.state.inputValue );
+					},()=>{
+						this.props.onChange( date );
+						this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 					});		
 				}
 				else{
-					_self.props.onChange( date );
+					this.props.onChange( date );
 				}
 			}
 		}
