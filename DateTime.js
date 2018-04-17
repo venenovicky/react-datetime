@@ -1,5 +1,7 @@
+'use strict';
+
 var assign = require('object-assign'),
-	moment = require('moment').default,
+	moment = require('moment'),
 	React = require('react'),
 	CalendarContainer = require('./src/CalendarContainer')
 ;
@@ -189,6 +191,10 @@ var Datetime = React.createClass({
 			}
 		}
 
+		if ( nextProps.open !== this.state.open ) {
+			updatedState.open = nextProps.open;
+		}
+
 		this.setState( updatedState );
 	},
 
@@ -370,7 +376,7 @@ var Datetime = React.createClass({
 						viewDate: date.clone().startOf('hours'), 
 						inputValue: date.format( this.state.inputFormat )
 					},function(){
-						_self.props.onChange( date );
+						_self.props.onChange( date );						
 					});
 				}
 				else if (this.state.currentView==='hours') {
@@ -382,6 +388,7 @@ var Datetime = React.createClass({
 							inputValue: date.format( this.state.inputFormat )
 						},function(){
 							_self.props.onChange( date );
+							_self.props.onBlur( this.state.selectedDate || this.state.inputValue );
 						});	
 					}
 					else{
@@ -403,6 +410,7 @@ var Datetime = React.createClass({
 						inputValue: date.format( this.state.inputFormat )
 					},function(){
 						_self.props.onChange( date );
+						_self.props.onBlur( this.state.selectedDate || this.state.inputValue );
 					});
 				}
 				else{
@@ -418,6 +426,7 @@ var Datetime = React.createClass({
 						inputValue: date.format( this.state.inputFormat )
 					},function(){
 						_self.props.onChange( date );
+						_self.props.onBlur( this.state.selectedDate || this.state.inputValue );
 					});		
 				}
 				else{
@@ -442,7 +451,7 @@ var Datetime = React.createClass({
 	},
 
 	handleClickOutside: function() {
-		if ( this.props.input && this.state.open && !this.props.open ) {
+		if ( this.props.input && this.state.open ) {
 			this.setState({ open: false }, function() {
 				this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 			});
@@ -451,8 +460,7 @@ var Datetime = React.createClass({
 
 	localMoment: function( date, format, props ) {
 		props = props || this.props;
-		// var momentFn = props.utc ? moment.utc : moment;
-		var momentFn = props.utc ? moment.utc : ((moment && moment.hasOwnProperty('default'))?moment.default:moment);
+		var momentFn = props.utc ? moment.utc : moment;
 		var m = momentFn( date, format, props.strictParsing );
 		if ( props.locale )
 			m.locale( props.locale );
